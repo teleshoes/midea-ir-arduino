@@ -2,6 +2,9 @@ Midea A/C IR Blaster
 Copyright 2021 Elliot Wolk
 License: GPLv3 or later
 
+see also:
+https://github.com/teleshoes/wolke-home-config/blob/b927dd7659aabcb125b8b017890799627bfe8f15/bin/midea-ir-cmd
+
 /*
  * Midea A/C IR Blaster
  * flash to an Arduino Nano or similar, with an I/R bulb on D3 pin
