@@ -51,6 +51,26 @@
  *     mode=cool, fan=high, temp=23C  (state is always off)
  *        1011  0010  0100  1101  0011  1011  1100  0100  0101  0000  1010  1111
  *        ID1   ID2  ~1011 ~0010  high  off  ~0011 ~1011  23C   cool ~0101 ~0000
+ *
+ * the ext segment is:
+ *   EXT_ID_BYTE FAN_PCT_BYTE SLEEP_PLUSTEMP_BYTE LOWTEMP_UNITF_BYTE EMPTY_BYTE CSUM_BYTE
+ *      where EXT_ID_BYTE         = 11010101
+ *            FAN_PCT_BYTE        = decimal int between 0-100 (inclusive), or 102 for auto,
+ *                                  as an 8bit bitstring
+ *            SLEEP_PLUSTEMP_BYTE = S0P00000
+ *            S                   = the SLEEP_BIT, 1 for sleep=on, 0 for sleep=off
+ *            P                   = the PLUSTEMP_BIT, 1 for higher fahrenheit temp
+ *            LOWTEMP_UNITF_BYTE  = 000L000F
+ *            L                   = the LOWTEMP_BIT, 1 for low temp (16C/60F), 0 for normal
+ *            F                   = the UNITF_BIT, 1 for fahrenheit, 0 for celsius
+ *            EMPTY_BYTE          = 00000000
+ *            CSUM_BYTE           = sum of the 5 other bytes, modulus 256,
+ *                                  as an 8bit bitstring
+ *   e.g.:
+ *     fan=88%, temp=61F (17C, lowtemp, plustemp), sleep=yes
+ *        1101  0101  0101  1000  1010  0000  0001  0001  0000  0000  1101  1110
+ *        EXT_ID      fan=88%     sleep+plus  low+unitF   emptyByte    checksum
+ *        (213     +  88       +  160      +  17      +   0)  % 256 = 222
  */
 
 IRsendRaw sender;
