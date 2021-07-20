@@ -43,8 +43,14 @@
  *                     (17-30, same, off)
  *            STATE  = 1111 | 1011
  *                     (on, off)
+ *                     NOTE: ignored on some A/Cs
  *            MODE   = 1000 | 0000 | 1100 | 0100 | 0000
  *                     (auto, cool, heat, fan, off)
+ *                     NOTE: on some A/Cs, mode must be set to 0000/cool to turn off
+ *   e.g.:
+ *     mode=cool, fan=high, temp=23C  (state is always off)
+ *        1011  0010  0100  1101  0011  1011  1100  0100  0101  0000  1010  1111
+ *        ID1   ID2  ~1011 ~0010  high  off  ~0011 ~1011  23C   cool ~0101 ~0000
  */
 
 IRsendRaw sender;
