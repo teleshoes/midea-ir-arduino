@@ -18,17 +18,18 @@
  *
  * commands:
  *    #   start building the main segment
- *    @   start building the aux segment
+ *    @   start building the ext segment
  *    1   append a 1 to the current segment
  *    0   append a 0 to the current segment
- *    *   send the main segment TWICE, and then send the aux segment if started
+ *    *   send the main segment TWICE, and then send the ext segment if started
  *
  * a segment is fixed header of
  *   (mark, space, mark, space, mark) = (0, 5000, 4400, 4300, 500)
  *   followed by 48 bits of (space, mark) pairs,
  *   with 1=(1500, 500) and 0=(500, 500)
  *
- * an IR command is one main segment, repeated twice, followed by an optional aux segment
+ * an IR command is one main segment, repeated twice,
+ *   followed by an optional extension segment
  *
  * the main segment is:
  *   ID1 ID2 ~ID1 ~ID2 FAN STATE ~FAN ~STATE TEMP MODE ~TEMP ~MODE
